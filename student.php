@@ -344,27 +344,22 @@ $sy = ''.$py.' - '.$year.'';
 
 
     <!-- Main content -->
-    <section class="content">
-<div class="card">
-<div class="card-header">
-<h3 class="card-title">  
-               Student List  
-              </h3> 
-<button type="button"  data-toggle="modal" data-target="#addmenu" class="btn btn-success float-right"><i class="fa-solid fa-id-card"></i> Add New Students</button>
-
-
-  <a href="import_student.php"   class="btn mr-3 btn-info float-right"><i class="fa-solid fa-cloud-arrow-up"></i> Import Students</a>  
-</div>
-
-
-
-<div class="card-body">
-
+<section class="content">
+  <div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Student List</h3> 
+    <div class="form-check form-switch">
+      <input class="form-check-input" onchange="sy()" name="ongoing" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked">Ongoing</label>
+    </div>
+    <button type="button"  data-toggle="modal" data-target="#addmenu" class="btn btn-success float-right"><i class="fa-solid fa-id-card"></i> Add New Students</button>
+    <a href="import_student.php"   class="btn mr-3 btn-info float-right"><i class="fa-solid fa-cloud-arrow-up"></i> Import Students</a>  
+  </div>
+  <div class="card-body">
     <div class="form-group   col-3">
     <label>Academic Year <text class="text-danger">*</text></label>
     <select id="sy" onchange="sy()" class="form-control" name="year" required>
         <option   disabled selected>Selected Year </option>
-         
         <option value="2022 - 2023">2022 - 2023</option>
         <option value="2023 - 2024">2023 - 2024</option>
         <option selected value="<?php echo $py; ?> - <?php echo $year; ?>"><?php echo $py; ?> - <?php echo $year; ?></option>
@@ -462,8 +457,6 @@ if ($result2->num_rows > 0) {
    $firstname = $row2['firstname'];
    $lastname = $row2['lastname'];
   }
-} else {
-   
 }
  
  $sy = $row['sy'];
