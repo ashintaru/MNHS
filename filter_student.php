@@ -399,6 +399,8 @@ $sy = ''.$py.' - '.$year.'';
 <th>Email</th>
 <th>Grade Level</th>
 <th>Section</th>
+<th>ParentName</th>
+
 <th>S.Y.</th>
  
 <th> </th>
@@ -406,7 +408,7 @@ $sy = ''.$py.' - '.$year.'';
 </tr>
 </thead>
 <tbody>
-                                    <?php 
+<?php 
 
                 $sql = "SELECT * FROM section order by section";
 $result = $conn->query($sql);
@@ -422,8 +424,7 @@ if ($result->num_rows > 0) {
 
       ?>
 
-
-                                          <?php 
+<?php 
 
                 $sql = "SELECT * FROM account where type='Parent'";
 $result = $conn->query($sql);
@@ -431,7 +432,8 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    $pid_list .= '  <option value="'.$row['id'].'">'.$row['firstname'].' '.$row['lastname'].'</option>';
+    $pid_list .= '  
+      <option value="'.$row['id'].'">'.$row['firstname'].' '.$row['lastname'].'</option>';
   }
 } else {
  
@@ -452,7 +454,20 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
- 
+        $pid = $row['pid'];
+
+     $sql2 = "SELECT  firstname, lastname FROM account where id = '$pid' ";
+    $result2 = $conn->query($sql2);
+
+    if ($result2->num_rows > 0) {
+      // output data of each row
+      while($row2 = $result2->fetch_assoc()) {
+      $firstname = $row2['firstname'];
+      $lastname = $row2['lastname'];
+      }
+    } else {
+      
+    }
 
     echo '
 
@@ -465,6 +480,7 @@ if ($result->num_rows > 0) {
 <td > '.$row['email'].'</td>
 <td > '.$row['grade_level'].'</td>
 <td > '.$row['section'].'</td>
+<td > '.$firstname.' '.$lastname.'</td>
 <td class="text-bold text-orange" > '.$filter_sy.'</td>
  
  

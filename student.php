@@ -364,7 +364,6 @@ $sy = ''.$py.' - '.$year.'';
     <label>Academic Year <text class="text-danger">*</text></label>
     <select id="sy" onchange="sy()" class="form-control" name="year" required>
         <option   disabled selected>Selected Year </option>
-         
         <option value="2022 - 2023">2022 - 2023</option>
         <option value="2023 - 2024">2023 - 2024</option>
         <option selected value="<?php echo $py; ?> - <?php echo $year; ?>"><?php echo $py; ?> - <?php echo $year; ?></option>
@@ -389,8 +388,9 @@ $sy = ''.$py.' - '.$year.'';
 
  
 <th>Student ID #</th>
-<th>Firstname</th>
 <th>Lastname</th>
+<th>Firstname</th>
+<th>MiddleInitial</th>
 <th>contact</th>
 <th>Email</th>
 <th>Grade Level</th>
@@ -403,10 +403,10 @@ $sy = ''.$py.' - '.$year.'';
 </tr>
 </thead>
 <tbody>
-                                    <?php 
+<?php 
 
-                $sql = "SELECT * FROM section order by section";
-$result = $conn->query($sql);
+  $sql = "SELECT * FROM section order by section";
+  $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   // output data of each row
@@ -441,9 +441,8 @@ if ($result->num_rows > 0) {
 <?php
  
  $id = $_SESSION['id'];
-
-$sql = "SELECT * FROM student    order by id DESC";
-$result = $conn->query($sql);
+ $sql = "SELECT * FROM student order by lastname DESC";
+ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   // output data of each row
@@ -467,19 +466,20 @@ if ($result2->num_rows > 0) {
 }
  
  $sy = $row['sy'];
+ $middle_initial = substr($row['middlename'], 0, 1);
 
     echo '
 
 <tr>
  
 <td class="text-bold text-orange"><img src="student.png" width="40px"> '.$row['id'].' </td>
-<td > '.$row['firstname'].'</td>
 <td > '.$row['lastname'].'</td>
+<td > '.$row['firstname'].'</td>
+<td > '.strtoupper($middle_initial).'</td>
 <td > '.$row['contact'].'</td>
 <td > '.$row['email'].'</td>
 <td > '.$row['grade_level'].'</td>
 <td > '.$row['section'].'</td>
-
 <td > '.$firstname.' '.$lastname.'</td>
 <td class="text-bold text-orange" > '.$sy.'</td>
  
@@ -506,13 +506,14 @@ if ($result2->num_rows > 0) {
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title text-danger text-bold" id="exampleModalLabel">         <i class="fa-solid fa-trash"></i>  Delete Student Data</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+          <h5 class="modal-title text-danger text-bold" id="exampleModalLabel">         
+          <i class="fa-solid fa-trash"></i>  Delete Student Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
       </div>
       <div class="modal-body">
- <form method="POST" action="student.php" enctype="multipart/form-data">
+       <form method="POST" action="student.php" enctype="multipart/form-data">
 
 
 
@@ -535,13 +536,8 @@ if ($result2->num_rows > 0) {
                     <input readonly type="text" class="form-control"   value="'.$row['lastname'].'" required >
                   </div>
 
-                   
- 
- 
 
- 
-                    
-                      <input style="display:none;" type="text" name="id" value="'.$row['id'].'">
+                  <input style="display:none;" type="text" name="id" value="'.$row['id'].'">
 
 
       </div>
@@ -583,18 +579,22 @@ echo '
                     <input type="text" class="form-control" value="'.$row['lastname'].'" required placeholder="Enter Lastname" name="lastname" >
                   </div>
 
+                  <div class="form-group col-6">
+                    <label for="text">Middlename<text class="text-danger">*</text></label>
+                    <input type="text" class="form-control" value="'.$row['middlename'].'" required placeholder="Enter middlename" name="middlename" >
+                  </div>
 
                  
 
-                                   <div class="form-group col-6">
-    <label>Contact #<text class="text-danger">*</text></label>
-    <div class="input-group">
-        <span class="input-group-text">+63</span>
-        <input type="tel" class="form-control" value="'.$row['contact'].'" name="contact" required 
-               placeholder="Enter Contact #" pattern="[0-9]{10}" 
-               maxlength="10" minlength="10" title="Enter a 10-digit phone number">
-    </div>
-</div>
+                  <div class="form-group col-6">
+                      <label>Contact #<text class="text-danger">*</text></label>
+                      <div class="input-group">
+                          <span class="input-group-text">+63</span>
+                          <input type="tel" class="form-control" value="'.$row['contact'].'" name="contact" required 
+                                placeholder="Enter Contact #" pattern="[0-9]{10}" 
+                                maxlength="10" minlength="10" title="Enter a 10-digit phone number">
+                      </div>
+                  </div>
 
                   <div class="form-group col-6">
                     <label for="text">Email<text class="text-danger">*</text></label>
@@ -643,9 +643,6 @@ echo '
     </div>
   </div>
 </div>
- 
-
- 
 ';
 
 
@@ -735,6 +732,11 @@ if ($conn->query($sql) === TRUE) {
                   <div class="form-group col-6">
                     <label for="text">Lastname<text class="text-danger">*</text></label>
                     <input type="text" class="form-control" required placeholder="Enter Lastname" name="lastname" >
+                  </div>
+                  
+                  <div class="form-group col-6">
+                    <label for="text">Middlename<text class="text-danger">*</text></label>
+                    <input type="text" class="form-control" required placeholder="Enter Middlename" name="middlename" >
                   </div>
 
 
@@ -836,8 +838,8 @@ if ($result->num_rows > 0) {
 
 function submit() {
   // body...
-var button = document.getElementById("id1");  
-button.disabled = true;
+  var button = document.getElementById("id1");  
+  button.disabled = true;
 }
 </script>
 
@@ -848,6 +850,7 @@ if(isset($_POST['add_student']))
 
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
+    $middlename = $_POST['middlename'];
     $contact = $_POST['contact'];
     $email = $_POST['email'];
     $grade_level = $_POST['grade_level'];
@@ -858,8 +861,8 @@ if(isset($_POST['add_student']))
   
  
  
-    $sql = "INSERT INTO student (firstname, lastname, contact, email, grade_level, section, pid, month, day, year, sy)
-VALUES ('$firstname', '$lastname', '$contact', '$email', '$grade_level', '$section', '$pid', '$month', '$day', '$year' ,'$sy')";
+    $sql = "INSERT INTO student (firstname, lastname,middlename,contact, email, grade_level, section, pid, month, day, year, sy)
+VALUES ('$firstname', '$lastname', '$middlename',' $contact', '$email', '$grade_level', '$section', '$pid', '$month', '$day', '$year' ,'$sy')";
 
 if ($conn->query($sql) === TRUE) {
    
@@ -899,6 +902,7 @@ if(isset($_POST['update_student']))
 
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
+    $middlename = $_POST["middlename"];
     $contact = $_POST['contact'];
     $email = $_POST['email'];
     $grade_level = $_POST['grade_level'];
@@ -909,7 +913,7 @@ if(isset($_POST['update_student']))
     $update_id = $_POST['update_id'];
  
 
-    $sql = "UPDATE student SET firstname='$firstname', lastname='$lastname', contact='$contact', email='$email', grade_level='$grade_level', pid='$pid', section='$section' WHERE id='$update_id'";
+    $sql = "UPDATE student SET firstname='$firstname', lastname='$lastname', middlename='$middlename', contact='$contact', email='$email', grade_level='$grade_level', pid='$pid', section='$section' WHERE id='$update_id'";
 
 if ($conn->query($sql) === TRUE) {
    
