@@ -1,12 +1,16 @@
 <?php
 
 session_start();
- define( 'DOIFD_SERVICE', '');
+  define( 'DOIFD_SERVICE', '');
 
-define("Server","localhost");
-  define("User","root");
-  define("Password","");
-  define("Database","yumyum");
+  define("Server","peru-wolverine-956769.hostingersite.com");
+  define("User","u356281675_ashintaru");
+  define("Password","Lh8$5I|cMgtf");
+  define("Database","u356281675_ashintaru");
+  // define("Server","localhost");
+  // define("User","root");
+  // define("Password","");
+  // define("Database","yumyum");
   function iud($query)
   {
     $cid=mysqli_connect(Server,User,Password,Database) or die("connection error");
@@ -32,10 +36,16 @@ function select($query)
 // $password = "38pvhnu5EyQbko";
 // $dbname = "if0_37396851_mnhs";
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "yumyum";
+$servername = "peru-wolverine-956769.hostingersite.com";
+$username = "u356281675_ashintaru";
+$password = "Lh8$5I|cMgtf";
+$dbname = "u356281675_ashintaru";
+
+
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "yumyum";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
