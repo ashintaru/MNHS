@@ -346,16 +346,26 @@ $sy = ''.$py.' - '.$year.'';
     <!-- Main content -->
     <section class="content">
 <div class="card">
-<div class="card-header">
-<h3 class="card-title">  
-               Student List  - Academic Year <?php echo $_GET['sy']; ?>
-              </h3> 
-<button type="button"  data-toggle="modal" data-target="#addmenu" class="btn btn-success float-right"><i class="fa-solid fa-id-card"></i> Add New Students</button>
-
+  <div class="card-header">
+    <h3 class="card-title">Student List  - Academic Year <?php echo $_GET['sy']; ?></h3> 
+    <?php
+        $new_shoolyear_array = explode("-",$_GET['sy']);
+        $sql = "SELECT * FROM schoolyear where start_year = '$new_shoolyear_array[0]' and end_year = '$new_shoolyear_array[1]'";
+        $result = $conn->query($sql);
+        $action = null;
+        if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+              $action = $row["status"]; 
+          }
+        }    
+    ?>
+    <?php if(!$action): ?>
+      <a href="import_student.php"   class="btn mr-3 btn-info float-right"><i class="fa-solid fa-cloud-arrow-up"></i> Import Students</a>  
+      <button type="button"  data-toggle="modal" data-target="#addmenu" class="btn btn-success float-right"><i class="fa-solid fa-id-card"></i> Add New Students</button>
+    <?php else: ?>
+      <h5 class="card-title float-right">Class Ongoing</h5> 
+    <?php endif ?>
 </div>
-
-
-
 <div class="card-body">
 
     <div class="form-group   col-3">

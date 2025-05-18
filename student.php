@@ -346,29 +346,37 @@ $sy = ''.$py.' - '.$year.'';
     <!-- Main content -->
     <section class="content">
 <div class="card">
-<div class="card-header">
-<h3 class="card-title">  
-               Student List  
-              </h3> 
-<button type="button"  data-toggle="modal" data-target="#addmenu" class="btn btn-success float-right"><i class="fa-solid fa-id-card"></i> Add New Students</button>
-
-
-  <a href="import_student.php"   class="btn mr-3 btn-info float-right"><i class="fa-solid fa-cloud-arrow-up"></i> Import Students</a>  
-</div>
-
-
-
+  <div class="card-header">
+    <h3 class="card-title">Student List</h3> 
+    <?php
+        $new_shoolyear_array = explode("-",$sy);
+        $sql = "SELECT * FROM schoolyear where start_year = '$new_shoolyear_array[0]' and end_year = '$new_shoolyear_array[1]'";
+        $result = $conn->query($sql);
+        $action = null;
+        if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+              $action = $row["status"]; 
+          }
+        }    
+    ?>
+    <?php if(!$action): ?>
+      <a href="import_student.php"   class="btn mr-3 btn-info float-right"><i class="fa-solid fa-cloud-arrow-up"></i> Import Students</a>  
+      <button type="button"  data-toggle="modal" data-target="#addmenu" class="btn btn-success float-right"><i class="fa-solid fa-id-card"></i> Add New Students</button>
+    <?php else: ?>
+      <h5 class="card-title float-right">Class Ongoing</h5> 
+    <?php endif ?>
+  </div>
 <div class="card-body">
+    <div class="form-group col-3">
+        <label>Academic Year <?php echo $new_shoolyear_array[0]; ?> <text class="text-danger">*</text></label>
+        <select id="sy" onchange="sy()" class="form-control" name="year" required>
+            <option   disabled selected>Selected Year </option>
+            <option value="2022 - 2023">2022 - 2023</option>
+            <option value="2023 - 2024">2023 - 2024</option>
+            <option selected value="<?php echo $py; ?> - <?php echo $year; ?>"><?php echo $py; ?> - <?php echo $year; ?></option>
+        </select>
+    </div>
 
-    <div class="form-group   col-3">
-    <label>Academic Year <text class="text-danger">*</text></label>
-    <select id="sy" onchange="sy()" class="form-control" name="year" required>
-        <option   disabled selected>Selected Year </option>
-        <option value="2022 - 2023">2022 - 2023</option>
-        <option value="2023 - 2024">2023 - 2024</option>
-        <option selected value="<?php echo $py; ?> - <?php echo $year; ?>"><?php echo $py; ?> - <?php echo $year; ?></option>
-    </select>
-</div>
 
 <script type="text/javascript">
   
@@ -844,7 +852,7 @@ function submit() {
 </script>
 
 
-  <?php
+<?php
 if(isset($_POST['add_student']))
   {
 

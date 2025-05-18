@@ -651,241 +651,204 @@ if ($conn->query($sql) === TRUE) {
  }
 ?>
 
-
 <!-- add menu Modal -->
-<form method="POST" action="teacher.php"  >
-<div class="modal fade" id="addmenu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-bold" id="exampleModalLabel"><i class="fa-solid fa-plus"></i> Add New Teachers</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="row">
-
-
-                  
-
-        
-                  <div class="form-group col-6">
-                    <label for="text">Firstname<text class="text-danger">*</text></label>
-                    <input type="text" class="form-control" name="firstname" required placeholder="Enter Firstname">
-                  </div>
-
-                  <div class="form-group col-6">
-                    <label for="text">Lastname<text class="text-danger">*</text></label>
-                    <input type="text" class="form-control" name="lastname" placeholder="Enter Lastname">
-                  </div>
-
- 
-
-                <div class="form-group col-6">
-                  <label >Email <text class="text-danger">*</text></label>
-                  <input type="email" class="form-control" name="email" required placeholder="Enter Email">
-                </div>
-
-
-                  <div class="form-group col-6">
-    <label>Contact #<text class="text-danger">*</text></label>
-    <div class="input-group">
-        <span class="input-group-text">+63</span>
-        <input type="tel" class="form-control" name="contact" required 
-               placeholder="Enter Contact #" pattern="[0-9]{10}" 
-               maxlength="10" minlength="10" title="Enter a 10-digit phone number">
-    </div>
-</div>
-
-
-                 <div class="form-group col-12">
-                    <label for="text">Username<text class="text-danger">*</text></label>
-                    <input type="text" class="form-control" name="username" required placeholder="Enter Username">
-                  </div>
-
-
-                <div class="form-group col-6">
-                  <label >Password<text class="text-danger">*</text></label>
-                  <input type="password" class="form-control" id="password" minlength="6" name="password" required placeholder="Enter Password"  >
-                </div>
-
-
-                <div class="form-group col-6">
-                  <label >Confirm Password<text class="text-danger">*</text></label>
-                  <input type="password" class="form-control" id="confirm_password" minlength="6" name="password" required placeholder="Enter Password"  >
-                </div>
-
-                <span id='message'></span> 
-
-
-      </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" id="id1" name="add_teacher" onclick="submit()" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+<form method="POST" action="teacher.php" enctype="multipart/form-data"  >
+  <div class="modal fade" id="addmenu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-bold" id="exampleModalLabel"><i class="fa-solid fa-plus"></i> Add New Teachers</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-6">
+              <label for="text">Firstname<text class="text-danger">*</text></label>
+              <input type="text" class="form-control" name="firstname" required placeholder="Enter Firstname">
+            </div>
+            <div class="form-group col-6">
+              <label for="text">Lastname<text class="text-danger">*</text></label>
+              <input type="text" class="form-control" name="lastname" placeholder="Enter Lastname">
+            </div>
+            <div class="form-group col-6">
+              <label >Email <text class="text-danger">*</text></label>
+              <input type="email" class="form-control" name="email" required placeholder="Enter Email">
+            </div>
+            <div class="form-group col-6">
+              <label>Contact #<text class="text-danger">*</text></label>
+              <div class="input-group">
+                  <span class="input-group-text">+63</span>
+                  <input type="tel" class="form-control" name="contact" required 
+                        placeholder="Enter Contact #" pattern="[0-9]{10}" 
+                        maxlength="10" minlength="10" title="Enter a 10-digit phone number">
+              </div>
+            </div>
+            <div class="form-group col-12">
+              <label for="text">Username<text class="text-danger">*</text></label>
+              <input type="text" class="form-control" name="username" required placeholder="Enter Username">
+            </div>
+            <div class="form-group col-6">
+              <label >Password<text class="text-danger">*</text></label>
+              <input type="password" class="form-control" id="password" minlength="6" name="password" required placeholder="Enter Password"  >
+            </div>
+            <div class="form-group col-6">
+              <label >Confirm Password<text class="text-danger">*</text></label>
+              <input type="password" class="form-control" id="confirm_password" minlength="6" name="password" required placeholder="Enter Password"  >
+            </div>
+            <span id='message'></span> 
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="id1" name="add_teacher" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-  </form>
+</form>
 
 
 
 <script> 
 
 
-  $('#password, #confirm_password').on('keyup', function () {
+$('#password, #confirm_password').on('keyup', function () {
   if ($('#password').val() == $('#confirm_password').val()) {
     $('#message').html(' ').css('color', 'green');
  
   var button = document.getElementById("myButton");
   
-button.disabled = false;
+  button.disabled = false;
     
   } else {
     $('#message').html('Password does not Match').css('color', 'red');
  
           var button = document.getElementById("myButton");  
 button.disabled = true;
-  }
+}
  
 });
  
 
 
 function submit() {
-  // body...
-var button = document.getElementById("id1");  
-button.disabled = true;
+
+  var button = document.getElementById("id1");  
+  button.disabled = true;
+
 }
 </script>
 
-
-  <?php
+<?php
 if(isset($_POST['add_teacher']))
   {
+      $username = $_POST['username'];
+      $firstname = $_POST['firstname'];
+      $lastname = $_POST['lastname'];
+      $email = $_POST['email'];
+      $contact = $_POST['contact'];
+      $password = $_POST['password'];
 
-    $username = $_POST['username'];
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $email = $_POST['email'];
-    $contact = $_POST['contact'];
-    $password = $_POST['password'];
+      $found = false;
+      $sql = "SELECT * FROM account 
+              where email = '$email'";
+      $checkEmail = $conn->query($sql);
+      
+      $sql = "SELECT * FROM account 
+              where lastname = '$lastname' AND firstname = '$firstname'";
+      $checkName = $conn->query($sql);
+      
+      $sql = "SELECT * FROM account 
+              where username = '$username'";
+      $checkUsername = $conn->query($sql);
 
-    echo '<script type="text/javascript">
-  
-        Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Successfully Added New Teacher",
-        showConfirmButton: false,
-        timer: 1500
-      });';
 
-    $found = 0;
-    $sql = "SELECT id FROM account where email = '$email' ";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-        $found = 1;
-        $exist = 'Email';
+      if ($checkEmail->num_rows) {
+        echo 
+            '<script type="text/javascript">
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: "Email already Exsist",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+            </script> ';
       }
-      } else {
-        $found = 0;
+      elseif($checkName->num_rows){
+          echo 
+            '<script type="text/javascript">
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: "Teacher Name already Exsist",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+            </script> ';
+      }
+      elseif($checkUsername->num_rows){
+          echo 
+            '<script type="text/javascript">
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: "Username already Exsist",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+            </script> ';
+      }
+      else{
+          $sql = "INSERT INTO account 
+          (firstname, lastname, email, contact, username, password, type, month, day, year,status)
+          VALUES ('$firstname', '$lastname', '$email', '$contact', '$username', '$password', 'Teacher', '$month', '$day', '$year','1')";
+          if ($conn->query($sql) === TRUE) 
+          {
+            echo 
+              '<script type="text/javascript">
+                  Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Successfully Added New Teacher",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+              </script> ';
+              echo '<meta http-equiv="refresh" content="1.5; URL=teacher.php" />';
+        } else {
+          echo 
+            '<script type="text/javascript">      
+                Swal.fire({
+                position: "center",
+                icon: "error",
+                title: '. $sql . "<br>" . $conn->error. ',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            </script> ';
+        }
       }
 
 
-    $sql = "SELECT id FROM account where username = '$username' ";
-    $result = $conn->query($sql);
+  } 
+?>
 
-    if ($result->num_rows > 0) {
-      // output data of each row
-      while($row = $result->fetch_assoc()) {
-        $found = 1;
-        $exist = 'Username';
-      }
-    } else {
-      $found = 0;
-    }
-
-
-
-
-  if($found == 0){
-    $sql = "INSERT INTO account (firstname, lastname, email, contact, username, password, type, month, day, year)
-VALUES ('$firstname', '$lastname', '$email', '$contact', '$username', '$password', 'Teacher', '$month', '$day', '$year')";
-
+<?php
+  if(isset($_POST['update_teacher']))
+    {
+      $username = $_POST['username'];
+      $firstname = $_POST['firstname'];
+      $lastname = $_POST['lastname'];
+      $email = $_POST['email'];
+      $contact = $_POST['contact'];
+      $password = $_POST['password'];
+      $update_id = $_POST['update_id'];
+      $status = $_POST["status"];
+      $sql = "UPDATE account SET firstname='$firstname', lastname='$lastname', email='$email', status='$status', contact='$contact', password='$password', username='$username' WHERE id='$update_id'";
 if ($conn->query($sql) === TRUE) {
-   
-
-  echo '<script type="text/javascript">
-  
-  Swal.fire({
-  position: "center",
-  icon: "success",
-  title: "Successfully Added New Teacher",
-  showConfirmButton: false,
-  timer: 1500
-});
-
-
-</script> ';
-
- echo '  <meta http-equiv="refresh" content="1.5; URL=teacher.php" />';
-
-
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-
-  }
- 
- if($found == 1){
-    echo '<script type="text/javascript">
-  
-  Swal.fire({
-  position: "center",
-  icon: "error",
-  title: "Teacher '.$exist.' Already Exist.",
-  showConfirmButton: false,
-  timer: 1500
-});
-
-
-</script> ';
- }
-
-
-
-
-
-} ?>
-
-
-
-  <?php
-if(isset($_POST['update_teacher']))
-  {
-
-
-    $username = $_POST['username'];
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $email = $_POST['email'];
-    $contact = $_POST['contact'];
-    $password = $_POST['password'];
-
-    $update_id = $_POST['update_id'];
- 
-
-    $sql = "UPDATE account SET firstname='$firstname', lastname='$lastname', email='$email', contact='$contact', password='$password', username='$username' WHERE id='$update_id'";
-
-if ($conn->query($sql) === TRUE) {
-   
-
   echo '<script type="text/javascript">
   
   Swal.fire({
@@ -906,16 +869,8 @@ if ($conn->query($sql) === TRUE) {
   echo "Error updating record: " . $conn->error;
 }
 
-
- 
-
-
-
-
-} ?>
-
-
-
+} 
+?>
 
  
   <!-- /.content-wrapper -->
