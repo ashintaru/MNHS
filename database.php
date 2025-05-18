@@ -3,7 +3,7 @@
 session_start();
   define( 'DOIFD_SERVICE', '');
 
-  define("Server","srv482.hstgr.io");
+  define("Server","localhost");
   define("User","u356281675_ashintaru");
   define("Password","Lh8$5I|cMgtf");
   define("Database","u356281675_ashintaru");
@@ -36,7 +36,7 @@ function select($query)
 // $password = "38pvhnu5EyQbko";
 // $dbname = "if0_37396851_mnhs";
 
-$servername = "srv482.hstgr.io";
+$servername = "localhost";
 $username = "u356281675_ashintaru";
 $password = "Lh8$5I|cMgtf";
 $dbname = "u356281675_ashintaru";
