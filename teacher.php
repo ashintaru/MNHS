@@ -773,34 +773,42 @@ if(isset($_POST['add_teacher']))
     $contact = $_POST['contact'];
     $password = $_POST['password'];
 
+    echo '<script type="text/javascript">
+  
+        Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Successfully Added New Teacher",
+        showConfirmButton: false,
+        timer: 1500
+      });';
 
+    $found = 0;
     $sql = "SELECT id FROM account where email = '$email' ";
-$result = $conn->query($sql);
+    $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-     $found = 1;
-     $exist = 'Email';
-  }
-} else {
-   $found = 0;
-}
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $found = 1;
+        $exist = 'Email';
+      }
+      } else {
+        $found = 0;
+      }
 
 
     $sql = "SELECT id FROM account where username = '$username' ";
-$result = $conn->query($sql);
+    $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-     $found = 1;
-
-     $exist = 'Username';
-  }
-} else {
-   $found = 0;
-}
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+        $found = 1;
+        $exist = 'Username';
+      }
+    } else {
+      $found = 0;
+    }
 
 
 
