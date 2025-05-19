@@ -419,10 +419,11 @@ if($forth == 'on'){
 <div class="card-body">
   <div class="row"> 
     <form method="POST" action="settings.php">
-
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" name="grades" <?php echo $gr; ?> id="remember1" >
-              <label class="form-check-label" for="switchCheckChecked"> Allow teacher to Input grades</label>
+            <div class="icheck-orange col-12">
+              <input type="checkbox" name="grades" <?php echo $gr; ?> id="remember1">
+              <label for="remember1">
+               Allow teacher to Input grades
+              </label>
             </div>
 
              <div class="icheck-orange col-12">
@@ -444,6 +445,12 @@ if($forth == 'on'){
               <input type="checkbox" name="first"  <?php echo $fi; ?> id="remember4">
               <label for="remember4">
                Allow teacher to Input grades of 1st Grading Period
+              </label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" value="" id="checkNativeSwitch" switch>
+              <label class="form-check-label" for="checkNativeSwitch">
+                Allow teacher to Input grades of 1st Grading Period
               </label>
             </div>
 
