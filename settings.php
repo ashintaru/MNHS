@@ -448,7 +448,7 @@ if($forth == 'on'){
               </label>
             </div>
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" value="" id="checkNativeSwitch" switch>
+              <input role="switch" class="form-check-input" type="checkbox" value="" id="checkNativeSwitch" switch>
               <label class="form-check-label" for="checkNativeSwitch">
                 Allow teacher to Input grades of 1st Grading Period
               </label>
