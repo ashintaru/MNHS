@@ -361,7 +361,6 @@ $sy = ''.$py.' - '.$year.'';
 <th>Lastname</th>
 <th>Email</th>
 <th>Contact</th>
-<th>Status</th>
 <th>Date Added</th>
 <th> </th>
 
@@ -380,16 +379,16 @@ if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
 
-    $status = $row['status'];
+    // $status = $row['status'];
 
-    if($status == 0){
-      $text = ' <span class="badge bg-danger"> Inactive </span>';
-    }
+    // if($status == 0){
+    //   $text = ' <span class="badge bg-danger"> Inactive </span>';
+    // }
 
 
-      if($status == 1){
-      $text = ' <span class="badge bg-success"> Active </span>';
-    }
+    //   if($status == 1){
+    //   $text = ' <span class="badge bg-success"> Active </span>';
+    // }
     echo '
 <tr>
  
@@ -398,7 +397,6 @@ if ($result->num_rows > 0) {
 <td > '.$row['lastname'].'</td>
 <td > '.$row['email'].'</td>
 <td > '.$row['contact'].'</td>
-<td > '. $text.'</td>
  <td > '.$row['month'].' '.$row['day'].', '.$row['year'].'</td>
 <td> 
 <h4>   
